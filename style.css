@@ -1,0 +1,15 @@
+.navbar-end > .navbar-item.has-dropdown.is-hoverable figure {
+  width: 3.25rem;
+  height: 3.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-end > .navbar-item.has-dropdown.is-hoverable figure img {
+  min-width: 75%;
+  min-height: 75%;
+  border: 1px solid teal;
+  padding: 0.25rem;
+  border-radius: 50%;
+}
