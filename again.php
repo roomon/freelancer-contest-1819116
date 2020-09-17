@@ -4,5 +4,14 @@ $token = bin2hex(random_bytes(5));
 $pdo = require './_pdo.php';
 $stmt = $pdo->prepare('UPDATE `Users` SET `Token` = ? WHERE `Email` = ?');
 $stmt->execute([$token, $_POST['email']]);
-// send mail
+
+$url = require './_url.php';
+$link = $url . '/reset.php?token=' . $token;
+
+$mail = require './_mail.php';
+$mail->addAddress($_POST['email']);
+$mail->Subject = 'Reset Password';
+$mail->Body = 'Click <a href="' . $link . '">here</a> to reset your password.';
+$mail->send();
+
 header('Location: signin.php');

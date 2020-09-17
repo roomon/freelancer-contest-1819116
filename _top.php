@@ -16,7 +16,7 @@
     <section class="hero-head">
       <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a href="index.php" class="navbar-item">
+          <a href="<?= require './_url.php' ?>" class="navbar-item">
             <img src="logo.png">
           </a>
           <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -27,7 +27,7 @@
         </div>
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
-            <a href="index.php" class="navbar-item">
+            <a href="<?= require './_url.php' ?>" class="navbar-item">
               Home
             </a>
           </div>
