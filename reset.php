@@ -1,15 +1,16 @@
-<?php require_once './_top.php' ?>
-<?php if (isset($_SESSION['auth'])) header('Location: index.php'); ?>
-<?php if (isset($_GET['token'])) : ?>
-  <?php
+<?php
+session_start();
+if (isset($_SESSION['auth'])) header('Location: index.php');
+elseif (isset($_GET['token'])) {
   $pdo = require './_pdo.php';
   $stmt = $pdo->prepare('SELECT `ID` FROM `Users` WHERE `Token` = ?');
   $stmt->execute([$_GET['token']]);
   $user = $stmt->fetch(PDO::FETCH_ASSOC);
   $_SESSION['reset'] = $user['ID'];
   header('Location: password.php');
-  ?>
-<?php else : ?>
+} else {
+?>
+  <?php require_once './_top.php' ?>
   <div class="column is-half">
     <div class="box">
       <figure class="is-flex mb-3" style="justify-content: center;">
@@ -37,5 +38,5 @@
       </form>
     </div>
   </div>
-<?php endif ?>
-<?php require_once './_bot.php' ?>
+  <?php require_once './_bot.php' ?>
+<?php } ?>
