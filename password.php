@@ -11,7 +11,9 @@ else {
 ?>
 <div class="column is-half">
   <div class="box">
-    <h1 class="title has-text-centered">Change Password</h1>
+    <figure class="is-flex mb-3" style="justify-content: center;">
+      <img src="logo.png">
+    </figure>
     <form action="new.php" method="post">
       <input type="hidden" name="token" value="<?= $user['Token'] ?>">
       <div class="field">

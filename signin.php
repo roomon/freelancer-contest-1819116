@@ -2,7 +2,9 @@
 <?php if (isset($_SESSION['auth'])) header('Location: index.php'); ?>
 <div class="column is-half">
   <div class="box">
-    <h1 class="title has-text-centered">Sign In</h1>
+    <figure class="is-flex mb-3" style="justify-content: center;">
+      <img src="logo.png">
+    </figure>
     <form action="enter.php" method="post">
       <div class="field">
         <!-- <label for="email" class="label">Email</label> -->

@@ -12,7 +12,9 @@
 <?php else : ?>
   <div class="column is-half">
     <div class="box">
-      <h1 class="title has-text-centered">Reset</h1>
+      <figure class="is-flex mb-3" style="justify-content: center;">
+        <img src="logo.png">
+      </figure>
       <form action="again.php" method="post">
         <div class="field">
           <!-- <label for="email" class="label">Email</label> -->
