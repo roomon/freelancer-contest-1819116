@@ -2,7 +2,24 @@
 session_start();
 if (isset($_SESSION['auth'])) header('Location: index.php');
 elseif (empty($_SESSION['reset'])) header('Location: reset.php');
-else {
+elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  try {
+    $pdo = require './_pdo.php';
+    $stmt = $pdo->prepare('SELECT `ID` FROM `Users` WHERE `Token` = ?');
+    $stmt->execute([$_POST['token']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    unset($stmt);
+
+    $stmt = $pdo->prepare('UPDATE `Users` SET `Password` = ?, `Token` = NULL WHERE `ID` = ?');
+    $stmt->execute([$_POST['password1'], $user['ID']]);
+    unset($_SESSION['reset']);
+
+    header('Location: signin.php');
+  } catch (Exception $e) {
+    file_put_contents('debug.log', $e->getMessage());
+    header('Location: reset.php');
+  }
+} else {
   $pdo = require './_pdo.php';
   $stmt = $pdo->prepare('SELECT `Token` FROM `Users` WHERE `ID` = ?');
   $stmt->execute([$_SESSION['reset']]);
@@ -14,7 +31,7 @@ else {
       <figure class="is-flex mb-3" style="justify-content: center;">
         <img src="logo.png">
       </figure>
-      <form action="new.php" method="post">
+      <form action="password.php" method="post">
         <input type="hidden" name="token" value="<?= $user['Token'] ?>">
         <div class="field">
           <!-- <label for="password1" class="label">New Password</label> -->

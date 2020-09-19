@@ -1,7 +1,24 @@
 <?php
 session_start();
 if (isset($_SESSION['auth'])) header('Location: index.php');
-else {
+elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  try {
+    $pdo = require './_pdo.php';
+    $stmt = $pdo->prepare('SELECT * FROM `Users` WHERE `Email` = ?');
+    $stmt->execute([$_POST['email']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user['Password'] !== $_POST['password']) {
+      header('Location: signin.php');
+    } else {
+      $_SESSION['auth'] = $user;
+      header('Location: index.php');
+    }
+  } catch (Exception $e) {
+    file_put_contents('debug.log', $e->getMessage());
+    header('Location: signin.php');
+  }
+} else {
 ?>
   <?php require_once './_top.php' ?>
   <div class="column is-half">
@@ -9,7 +26,7 @@ else {
       <figure class="is-flex mb-3" style="justify-content: center;">
         <img src="logo.png">
       </figure>
-      <form action="enter.php" method="post">
+      <form action="signin.php" method="post">
         <div class="field">
           <!-- <label for="email" class="label">Email</label> -->
           <div class="control has-icons-left">
