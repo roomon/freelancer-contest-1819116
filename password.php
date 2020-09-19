@@ -4,7 +4,7 @@ if (isset($_SESSION['auth'])) header('Location: index.php');
 elseif (empty($_SESSION['reset'])) header('Location: reset.php');
 elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
   try {
-    $pdo = require './_pdo.php';
+    $pdo = require_once './_pdo.php';
     $stmt = $pdo->prepare('SELECT `ID` FROM `Users` WHERE `Token` = ?');
     $stmt->execute([$_POST['token']]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -20,7 +20,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: reset.php');
   }
 } else {
-  $pdo = require './_pdo.php';
+  $pdo = require_once './_pdo.php';
   $stmt = $pdo->prepare('SELECT `Token` FROM `Users` WHERE `ID` = ?');
   $stmt->execute([$_SESSION['reset']]);
   $user = $stmt->fetch(PDO::FETCH_ASSOC);

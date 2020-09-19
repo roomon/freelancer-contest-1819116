@@ -23,7 +23,7 @@ if (
     <section class="hero-head">
       <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a href="<?= require './_url.php' ?>" class="navbar-item">
+          <a href="<?= require_once './_url.php' ?>" class="navbar-item">
             <img src="logo.png">
           </a>
           <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -34,7 +34,7 @@ if (
         </div>
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
-            <a href="<?= require './_url.php' ?>" class="navbar-item">
+            <a href="<?= require_once './_url.php' ?>" class="navbar-item">
               Home
             </a>
           </div>

@@ -3,15 +3,15 @@ session_start();
 if (isset($_SESSION['auth'])) header('Location: index.php');
 elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $token = bin2hex(random_bytes(5));
-  $url = require './_url.php';
+  $url = require_once './_url.php';
   $link = $url . '/reset.php?token=' . $token;
 
   try {
-    $pdo = require './_pdo.php';
+    $pdo = require_once './_pdo.php';
     $stmt = $pdo->prepare('UPDATE `Users` SET `Token` = ? WHERE `Email` = ?');
     $stmt->execute([$token, $_POST['email']]);
 
-    $mail = require './_mail.php';
+    $mail = require_once './_mail.php';
     $mail->addAddress($_POST['email']);
     $mail->Subject = 'Reset Password';
     $mail->Body = 'Click <a href="' . $link . '">here</a> to reset your password.';
@@ -23,7 +23,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: reset.php');
   }
 } elseif (isset($_GET['token'])) {
-  $pdo = require './_pdo.php';
+  $pdo = require_once './_pdo.php';
   $stmt = $pdo->prepare('SELECT `ID` FROM `Users` WHERE `Token` = ?');
   $stmt->execute([$_GET['token']]);
   $user = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -7,7 +7,7 @@ const SMTP_PORT = 465;
 const SMTP_USER = 'noreply@example.com';
 const SMTP_PASS = 'secret';
 
-require './vendor/autoload.php';
+require_once './vendor/autoload.php';
 
 $mail = new PHPMailer();
 $mail->isSMTP();

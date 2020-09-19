@@ -3,15 +3,15 @@ session_start();
 if (isset($_SESSION['auth'])) header('Location: index.php');
 elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $token = bin2hex(random_bytes(5));
-  $url = require './_url.php';
+  $url = require_once './_url.php';
   $link = $url . '/verify.php?token=' . $token;
 
   try {
-    $pdo = require './_pdo.php';
+    $pdo = require_once './_pdo.php';
     $stmt = $pdo->prepare('INSERT INTO `Users` (`FirstName`, `LastName`, `Email`, `Password`, `Token`) VALUES (?, ?, ?, ?, ?)');
     $stmt->execute([$_POST['firstName'], $_POST['lastName'], $_POST['email'], $_POST['password1'], $token]);
 
-    $mail = require './_mail.php';
+    $mail = require_once './_mail.php';
     $mail->addAddress($_POST['email']);
     $mail->Subject = 'New Account';
     $mail->Body = 'Click <a href="' . $link . '">here</a> to verify your account.';

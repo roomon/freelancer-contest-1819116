@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION['auth'])) header('Location: index.php');
 elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
   try {
-    $pdo = require './_pdo.php';
+    $pdo = require_once './_pdo.php';
     $stmt = $pdo->prepare('SELECT * FROM `Users` WHERE `Email` = ?');
     $stmt->execute([$_POST['email']]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);

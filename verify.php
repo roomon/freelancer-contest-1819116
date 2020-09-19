@@ -4,7 +4,7 @@ if (empty($_GET['token'])) {
   header('Location: signup.php');
 } else {
   try {
-    $pdo = require './_pdo.php';
+    $pdo = require_once './_pdo.php';
     $stmt = $pdo->prepare('SELECT `ID` FROM `Users` WHERE `Token` = ?');
     $stmt->execute([$_GET['token']]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
